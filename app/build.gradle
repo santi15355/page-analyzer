@@ -55,9 +55,9 @@ jacoco {
     toolVersion = "0.8.7"
 }
 
-task stage(dependsOn: ['clean', 'buildFatJar'])
-buildFatJar.mustRunAfter(clean)
+/*task stage(dependsOn: ['clean', 'buildFatJar'])
+buildFatJar.mustRunAfter(clean)*/
 
-/*
+
 task stage2(dependsOn: ['clean', 'installDist'])
-installDist.mustRunAfter clean*/
+installDist.mustRunAfter clean
