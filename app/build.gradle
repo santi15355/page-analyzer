@@ -58,3 +58,6 @@ jacoco {
 task stage(dependsOn: ['clean', 'buildFatJar'])
 buildFatJar.mustRunAfter(clean)
 
+/*
+task stage2(dependsOn: ['clean', 'installDist'])
+installDist.mustRunAfter clean*/
