@@ -9,8 +9,11 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 public final class App {
 
     private static int getPort() {
-        String port = System.getenv().getOrDefault("PORT", "5000");
-        return Integer.valueOf(port);
+        String port = System.getenv("PORT");
+        if (port != null) {
+            return Integer.valueOf(port);
+        }
+        return 5000;
     }
 
     private static String getMode() {
