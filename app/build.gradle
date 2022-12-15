@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.ebean' version '12.11.5'
     id 'application'
     id 'checkstyle'
     id 'jacoco'
@@ -30,6 +31,19 @@ dependencies {
     implementation 'org.thymeleaf:thymeleaf:3.1.1.RELEASE'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
+
+    implementation 'com.h2database:h2:2.1.210'
+    implementation 'org.postgresql:postgresql:42.3.3'
+
+    implementation 'io.ebean:ebean:12.11.5'
+    implementation 'io.ebean:ebean-ddl-generator:12.11.5'
+    implementation 'io.ebean:ebean-querybean:12.11.5'
+    implementation 'io.ebean:ebean-migration:12.11.2'
+    implementation 'io.ebean:ebean-annotation:7.7'
+    annotationProcessor 'io.ebean:querybean-generator:12.11.5'
+
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.5'
+    implementation 'javax.activation:activation:1.1.1'
 }
 
 checkstyle {
@@ -55,9 +69,10 @@ jacoco {
     toolVersion = "0.8.7"
 }
 
-/*task stage(dependsOn: ['clean', 'buildFatJar'])
-buildFatJar.mustRunAfter(clean)*/
-
-
 task stage(dependsOn: ['clean', 'buildFatJar'])
 buildFatJar.mustRunAfter(clean)
+
+task generateMigrations(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'hexlet.code.MigrationGenerator'
+}
