@@ -1,8 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
     id 'checkstyle'
     id 'jacoco'
     id 'com.adarshr.test-logger' version '3.1.0'
+    id 'war'
 }
 
 group 'hexlet.code'
@@ -12,6 +14,10 @@ repositories {
     mavenCentral()
 }
 
+application {
+    mainClass = 'hexlet.code.App'
+}
+
 compileJava {
     options.release = 17
 }
@@ -19,6 +25,11 @@ compileJava {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    implementation 'io.javalin:javalin:4.3.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.5'
+    implementation 'org.thymeleaf:thymeleaf:3.1.1.RELEASE'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 }
 
 checkstyle {
@@ -43,3 +54,10 @@ jacocoTestReport {
 jacoco {
     toolVersion = "0.8.7"
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task stage(dependsOn: ['clean', 'war'])
+war.mustRunAfter(clean)
