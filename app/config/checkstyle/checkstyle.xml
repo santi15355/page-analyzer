@@ -4,31 +4,20 @@
         "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <!--
-
   Checkstyle configuration that checks the sun coding conventions from:
-
     - the Java Language Specification at
       https://docs.oracle.com/javase/specs/jls/se11/html/index.html
-
     - the Sun Code Conventions at https://www.oracle.com/technetwork/java/codeconvtoc-136057.html
-
     - the Javadoc guidelines at
       https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html
-
     - the JDK Api documentation https://docs.oracle.com/en/java/javase/11/
-
     - some best practices
-
   Checkstyle is very configurable. Be sure to read the documentation at
   https://checkstyle.org (or in your downloaded distribution).
-
   Most Checks are configurable, be sure to consult the documentation.
-
   To completely disable a check, just comment it out or delete it from the file.
   To suppress certain violations please review suppression filters.
-
   Finally, it is worth reading the documentation.
-
 -->
 
 <module name="Checker">
@@ -36,7 +25,6 @@
         If you set the basedir property below, then all reported file
         names will be relative to the specified directory. See
         https://checkstyle.org/5.x/config.html#Checker
-
         <property name="basedir" value="${basedir}"/>
     -->
     <property name="severity" value="error"/>
@@ -163,10 +151,10 @@
         <!-- See https://checkstyle.org/config_coding.html -->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
+        <!-- <module name="HiddenField"/> -->
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
+        <!-- <module name="MagicNumber"/> -->
         <module name="MissingSwitchDefault"/>
         <module name="MultipleVariableDeclarations"/>
         <module name="SimplifyBooleanExpression"/>
@@ -178,13 +166,15 @@
         <module name="FinalClass"/>
         <!-- <module name="HideUtilityClassConstructor"/> -->
         <module name="InterfaceIsType"/>
-        <module name="VisibilityModifier"/>
+        <!-- <module name = "VisibilityModifier">
+          <property name="protectedAllowed" value="true" />
+        </module> -->
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See https://checkstyle.org/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <!-- <module name="FinalParameters"/> -->
-        <module name="TodoComment"/>
+        <!-- <module name="TodoComment"/> -->
         <module name="UpperEll"/>
 
         <module name="Indentation">
