@@ -3,22 +3,22 @@
       layout:decorate="~{layouts/application.html}" lang="ru">
 
 <section layout:fragment="content">
-    <div class="card" th:object="${url}">
-        <h1 th:text="'Page ' + *{getName()}"></h1>
+    <div class="container-lg mt-5" th:object="${url}">
+        <h1 th:text="'Сайт ' + *{getName()}"></h1>
 
         <table class="table table-bordered table-hover mt-3">
             <tbody>
             <tr>
                 <td>ID</td>
-                <td th:text="*{id}"></td>
+                <td th:text="*{getId()}"></td>
             </tr>
             <tr>
                 <td>Имя</td>
-                <td th:text="*{name}"></td>
+                <td th:text="*{getName()}"></td>
             </tr>
             <tr>
                 <td>Дата создания</td>
-                <td th:text="*{createdAt}"></td>
+                <td th:text="*{#temporals.format(getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
             </tr>
             </tbody>
         </table>
@@ -41,11 +41,11 @@
             <tbody>
             <tr>
                 <td th:text="*{getId()}"></td>
-                <td th:text="null"></td>
-                <td th:text="null"></td>
-                <td th:text="null"></td>
-                <td th:text="null"></td>
-                <td th:text="null"></td>
+                <td th:text="null">test</td>
+                <td th:text="null">test</td>
+                <td th:text="null">test</td>
+                <td th:text="null">test</td>
+                <td th:text="null">test</td>
             </tr>
             <!--<tr th:each="urlCheck : ${urlChecks}" th:object="${urlCheck}">
                 <td th:text="*{getId()}"></td>
