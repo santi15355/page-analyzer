@@ -4,7 +4,6 @@ import hexlet.code.domain.Url;
 import hexlet.code.domain.query.QUrl;
 import io.ebean.PagedList;
 import io.javalin.http.Handler;
-import io.javalin.http.NotFoundResponse;
 
 import java.net.URL;
 import java.util.List;
