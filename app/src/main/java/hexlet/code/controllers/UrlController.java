@@ -8,6 +8,7 @@ import io.javalin.http.NotFoundResponse;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 
 public final class UrlController {
     public static Handler addUrl = ctx -> {
@@ -55,15 +56,11 @@ public final class UrlController {
     };
 
     public static Handler showUrl = ctx -> {
-        long id = ctx.queryParamAsClass("id", Long.class).getOrDefault(null);
+        long id = Long.parseLong(ctx.pathParam("id"));
 
-        Url url = new QUrl()
+        Url url = Objects.requireNonNull(new QUrl()
                 .id.equalTo(id)
-                .findOne();
-
-        if (url == null) {
-            throw new NotFoundResponse();
-        }
+                .findOne());
 
         ctx.attribute("url", url);
         ctx.render("show.html");
