@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='/webjars/bootstrap/5.1.1/css/bootstrap.min.css'>
-    <title>Document</title>
-</head>
-<body>
-<h1>Hello, World!</h1>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/application.html}" lang="ru">
 
-</body>
+<section layout:fragment="content">
+    <div class="container-fluid bg-dark p-5">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto text-white">
+                <h1 class="display-3 mb-0">Анализатор страниц</h1>
+                <p class="lead">Бесплатно проверяйте сайты на SEO пригодность</p>
+                <form action="/urls" method="post" class="rss-form text-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <input id="url-input" autofocus="" type="text" required="" name="url" aria-label="url"
+                                       class="form-control w-100" placeholder="ссылка RSS" autocomplete="off">
+                                <label for="url-input">Ссылка</label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="h-100 btn btn-lg btn-primary px-sm-5">Проверить</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="mt-2 mb-0 text-muted">Пример: https://www.example.com</p>
+            </div>
+        </div>
+    </div>
+</section>
 </html>

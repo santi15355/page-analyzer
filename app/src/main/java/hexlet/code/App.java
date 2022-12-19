@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.controllers.RootController;
+import hexlet.code.controllers.UrlController;
 import io.javalin.Javalin;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
@@ -8,11 +9,15 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import static io.javalin.apibuilder.ApiBuilder.get;
+import static io.javalin.apibuilder.ApiBuilder.path;
+import static io.javalin.apibuilder.ApiBuilder.post;
+
 public final class App {
 
     private static int getPort() {
         String port = System.getenv().getOrDefault("PORT", "5000");
-        return Integer.valueOf(port);
+        return Integer.parseInt(port);
     }
 
     private static String getMode() {
@@ -38,6 +43,16 @@ public final class App {
 
     private static void addRoutes(Javalin app) {
         app.get("/", RootController.welcome);
+
+        app.routes(() -> {
+            path("urls", () -> {
+                post(UrlController.addUrl);
+                get(UrlController.showUrls);
+                path("{id}", () -> {
+                    get(UrlController.showUrl);
+                });
+            });
+        });
     }
 
     public static Javalin getApp() {
