@@ -37,6 +37,8 @@ public final class App {
         templateEngine.addTemplateResolver(templateResolver);
         templateEngine.addDialect(new LayoutDialect());
         templateEngine.addDialect(new Java8TimeDialect());
+        templateEngine.addTemplateResolver(templateResolver);
+        templateResolver.setCharacterEncoding("UTF-8");
 
         return templateEngine;
     }
