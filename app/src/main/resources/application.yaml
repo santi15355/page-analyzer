@@ -7,8 +7,11 @@ datasource:
   production:
     username: ${PGUSER}
     password: ${PGPASSWORD}
-    url: "postgresql://postgres:REJLBof1yeEztImIl1ID@containers-us-west-101.railway.app:7153/railway"
+    url: "jdbc:postgresql://containers-us-west-101.railway.app:7153/postgres"
 
 ebean:
+  migration:
+    run: true
+production:
   migration:
     run: true
