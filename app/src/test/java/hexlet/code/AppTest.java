@@ -66,7 +66,6 @@ public final class AppTest {
         HttpResponse<String> response = Unirest
                 .get(baseUrl + "/urls")
                 .asString();
-        String content = response.getBody();
 
         assertThat(response.getStatus()).isEqualTo(status200);
         assertThat(response.getBody()).contains("https://vk.com");
@@ -78,8 +77,6 @@ public final class AppTest {
                 .post(baseUrl + "/urls")
                 .field("name", "https://vk.com")
                 .asString();
-
-        String body = responsePost.getBody();
 
         assertThat(responsePost.getStatus()).isEqualTo(status500);
 
@@ -119,7 +116,6 @@ public final class AppTest {
                 .asString();
 
         assertThat(response.getStatus()).isEqualTo(status302);
-
     }
 
     @Test
