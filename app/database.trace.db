@@ -1,0 +1,8 @@
+2022-12-20 09:28:07 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "URL_CHECK" не найдена
+Table "URL_CHECK" not found; SQL statement:
+select t0.id, t0.status_code, t0.title, t0.h1, t0.url_id, t0.created_at from url_check t0 where t0.url_id = ? order by t0.id desc [42102-210]
+2022-12-20 09:30:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "URL_CHECK" не найдена
+Table "URL_CHECK" not found; SQL statement:
+select t0.id, t0.status_code, t0.title, t0.h1, t0.url_id, t0.created_at from url_check t0 where t0.url_id = ? order by t0.id desc [42102-210]

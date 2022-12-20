@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/application.html}" lang="ru">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/application.html}" xml:lang="ru">
 
 <section layout:fragment="content">
     <div class="container-lg mt-5">
@@ -18,8 +19,8 @@
             <tr th:each="url : ${urls}" th:object="${url}">
                 <td th:text="*{getId()}"></td>
                 <td><a th:href="@{/urls/{id}(id=*{id})}" th:text="*{getName()}"></a></td>
-                <td th:text="test"></td>
-                <td th:text="test">test</td>
+                <td th:text="${#temporals.format(url.getLastCheckDate(), 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="*{getLastCheckStatus()}"></td>
             </tr>
             </tbody>
         </table>

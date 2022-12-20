@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/application.html}" lang="ru">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/application.html}" xml:lang="ru">
 
 <section layout:fragment="content">
     <div class="container-lg mt-5" th:object="${url}">
@@ -39,22 +40,14 @@
                 <th class="col-2">Дата проверки</th>
             </tr></thead>
             <tbody>
-            <tr>
-                <td th:text="*{getId()}"></td>
-                <td th:text="null">test</td>
-                <td th:text="null">test</td>
-                <td th:text="null">test</td>
-                <td th:text="null">test</td>
-                <td th:text="null">test</td>
-            </tr>
-            <!--<tr th:each="urlCheck : ${urlChecks}" th:object="${urlCheck}">
+            <tr th:each="urlCheck : ${urlChecks}" th:object="${urlCheck}">
                 <td th:text="*{getId()}"></td>
                 <td th:text="*{getStatusCode()}"></td>
                 <td th:text="${#strings.abbreviate(urlCheck.getTitle(), 20)}"></td>
                 <td th:text="${#strings.abbreviate(urlCheck.getH1(), 20)}"></td>
                 <td th:text="${#strings.abbreviate(urlCheck.getDescription(), 50)}"></td>
                 <td th:text="${#temporals.format(urlCheck.getCreatedAt(), 'dd/MM/yyyy HH:mm')}"></td>
-            </tr> -->
+            </tr>
             </tbody>
         </table>
     </div>
