@@ -76,7 +76,7 @@ test {
 }
 
 jacocoTestReport {
-    dependsOn test
+        dependsOn test
     reports {
         xml.required = true
         html.outputLocation = layout.buildDirectory.dir('jacoco')

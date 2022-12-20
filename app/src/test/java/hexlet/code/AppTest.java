@@ -37,6 +37,7 @@ public final class AppTest {
 
     private final int status200 = 200;
     private final int status500 = 500;
+    private final int status302 = 302;
 
     @BeforeAll
     public static void beforeAll() {
@@ -78,6 +79,8 @@ public final class AppTest {
                 .field("name", "https://vk.com")
                 .asString();
 
+        String body = responsePost.getBody();
+
         assertThat(responsePost.getStatus()).isEqualTo(status500);
 
         Url actualUrl = new QUrl()
@@ -91,13 +94,32 @@ public final class AppTest {
     void testAddBadUrl() {
         HttpResponse<String> responsePost = Unirest
                 .post(baseUrl + "/urls")
-                .field("name", "httpppps://vk.com")
+                .field("name", "htts://vk.com")
                 .asString();
 
         Url actualUrl = new QUrl()
-                .name.equalTo("httpppps://vk.com")
+                .name.equalTo("htts://vk.com")
                 .findOne();
         assertThat(actualUrl).isNull();
+    }
+
+    @Test()
+    void testCheckBadUrl() {
+
+        Url url = new Url("https://example2.com");
+        url.save();
+
+        Url actualUrl = new QUrl()
+                .name.equalTo("https://example2.com")
+                .findOne();
+        assertThat(actualUrl).isNotNull();
+
+        HttpResponse<String> response = Unirest
+                .post(baseUrl + "/urls/" + actualUrl.getId() + "/checks")
+                .asString();
+
+        assertThat(response.getStatus()).isEqualTo(status302);
+
     }
 
     @Test
@@ -140,5 +162,4 @@ public final class AppTest {
 
         mockServer.shutdown();
     }
-
 }

@@ -21,6 +21,7 @@ import java.util.stream.IntStream;
 public final class UrlController {
     public static Handler addUrl = ctx -> {
         String userUrl = ctx.formParam("url");
+
         assert userUrl != null;
         URL urlParser = new URL(userUrl);
         String modifiedUrl = urlParser.getProtocol() + "://" + urlParser.getAuthority();
