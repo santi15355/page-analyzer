@@ -12,11 +12,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.servlet.http.HttpServletResponse;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class AppTest {
+public final class AppTest {
 
     @Test
     void testInit() {
