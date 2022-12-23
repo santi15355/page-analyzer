@@ -62,6 +62,12 @@ public final class AppTest {
     }
 
     @Test
+    void testMain() {
+        HttpResponse<String> response = Unirest.get(baseUrl).asString();
+        assertThat(response.getStatus()).isEqualTo(200);
+    }
+
+    @Test
     void testUrls() {
         HttpResponse<String> response = Unirest
                 .get(baseUrl + "/urls")
