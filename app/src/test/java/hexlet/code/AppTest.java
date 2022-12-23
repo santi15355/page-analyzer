@@ -132,16 +132,14 @@ public final class AppTest {
         String samplePageUrl = mockServer.url("/").toString();
         mockServer.enqueue(new MockResponse().setBody(samplePage));
 
-        HttpResponse<Empty> response = Unirest
-                .post(baseUrl + "/urls/")
-                .field("url", samplePageUrl)
-                .asEmpty();
+        Url url = new Url(samplePageUrl);
+        url.save();
 
-        Url url = new QUrl()
-                .name.equalTo(samplePageUrl.substring(0, samplePageUrl.length() - 1))
+        Url urlFromDB = new QUrl()
+                .name.equalTo(url.getName())
                 .findOne();
 
-        assertThat(url).isNotNull();
+        assertThat(urlFromDB).isNotNull();
 
         HttpResponse<Empty> response1 = Unirest
                 .post(baseUrl + "/urls/" + url.getId() + "/checks")
