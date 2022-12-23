@@ -9,7 +9,6 @@ import io.javalin.http.Handler;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
-import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -24,13 +23,8 @@ public final class UrlController {
         String userUrl = ctx.formParam("url");
 
         String[] schemes = {"http", "https", "ftp"};
-        UrlValidator urlValidator = new UrlValidator(schemes);
 
-        if (!urlValidator.isValid(userUrl)) {
-            ctx.sessionAttribute("flash", "Некоретный URL");
-            ctx.sessionAttribute("flash-type", "danger");
-            ctx.redirect("/");
-        } else {
+        try {
             assert userUrl != null;
             URL urlParser = new URL(userUrl);
 
@@ -49,11 +43,15 @@ public final class UrlController {
             Url url = new Url(modifiedUrl);
             url.save();
 
-            ctx.sessionAttribute("flash", "Страница успешно добавлена");
-            ctx.sessionAttribute("flash-type", "success");
-            ctx.redirect("/urls");
+        } catch (Exception exception) {
+            ctx.sessionAttribute("flash", "Некорректный сайт!");
+            ctx.sessionAttribute("flash-type", "danger");
+            ctx.redirect("/");
+            return;
         }
-
+        ctx.sessionAttribute("flash", "Страница успешно добавлена");
+        ctx.sessionAttribute("flash-type", "success");
+        ctx.redirect("/urls");
     };
 
     public static Handler showUrls = ctx -> {

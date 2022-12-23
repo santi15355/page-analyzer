@@ -84,7 +84,7 @@ public final class AppTest {
                 .field("name", "https://vk.com")
                 .asString();
 
-        assertThat(responsePost.getStatus()).isEqualTo(status302);
+        assertThat(responsePost.getStatus()).isEqualTo(status500);
 
         Url actualUrl = new QUrl()
                 .name.equalTo("https://vk.com")
@@ -132,14 +132,16 @@ public final class AppTest {
         String samplePageUrl = mockServer.url("/").toString();
         mockServer.enqueue(new MockResponse().setBody(samplePage));
 
-        Url url = new Url(samplePageUrl);
-        url.save();
+        HttpResponse<Empty> response = Unirest
+                .post(baseUrl + "/urls/")
+                .field("url", samplePageUrl)
+                .asEmpty();
 
-        Url urlFromDB = new QUrl()
-                .name.equalTo(url.getName())
+        Url url = new QUrl()
+                .name.equalTo(samplePageUrl.substring(0, samplePageUrl.length() - 1))
                 .findOne();
 
-        assertThat(urlFromDB).isNotNull();
+        assertThat(url).isNotNull();
 
         HttpResponse<Empty> response1 = Unirest
                 .post(baseUrl + "/urls/" + url.getId() + "/checks")
