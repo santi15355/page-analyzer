@@ -9,6 +9,7 @@ import io.javalin.http.Handler;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -22,26 +23,36 @@ public final class UrlController {
     public static Handler addUrl = ctx -> {
         String userUrl = ctx.formParam("url");
 
-        assert userUrl != null;
-        URL urlParser = new URL(userUrl);
-        String modifiedUrl = urlParser.getProtocol() + "://" + urlParser.getAuthority();
+        String[] schemes = {"http", "https", "ftp"};
+        UrlValidator urlValidator = new UrlValidator(schemes);
 
-        Url urlFromDB = new QUrl()
-                .name.equalTo(modifiedUrl)
-                .findOne();
-
-        if (null != urlFromDB) {
-            ctx.sessionAttribute("flash", "Сайт уже добавлен!");
+        if (!urlValidator.isValid(userUrl)) {
+            ctx.sessionAttribute("flash", "Некоретный URL");
             ctx.sessionAttribute("flash-type", "danger");
-            ctx.redirect("/urls");
-            return;
-        }
-        Url url = new Url(modifiedUrl);
-        url.save();
+            ctx.redirect("/");
+        } else {
+            assert userUrl != null;
+            URL urlParser = new URL(userUrl);
 
-        ctx.sessionAttribute("flash", "Страница успешно добавлена");
-        ctx.sessionAttribute("flash-type", "success");
-        ctx.redirect("/urls");
+            String modifiedUrl = urlParser.getProtocol() + "://" + urlParser.getAuthority();
+
+            Url urlFromDB = new QUrl()
+                    .name.equalTo(modifiedUrl)
+                    .findOne();
+
+            if (null != urlFromDB) {
+                ctx.sessionAttribute("flash", "Сайт уже добавлен!");
+                ctx.sessionAttribute("flash-type", "danger");
+                ctx.redirect("/urls");
+                return;
+            }
+            Url url = new Url(modifiedUrl);
+            url.save();
+
+            ctx.sessionAttribute("flash", "Страница успешно добавлена");
+            ctx.sessionAttribute("flash-type", "success");
+            ctx.redirect("/urls");
+        }
 
     };
 

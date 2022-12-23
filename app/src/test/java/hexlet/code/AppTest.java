@@ -78,7 +78,7 @@ public final class AppTest {
                 .field("name", "https://vk.com")
                 .asString();
 
-        assertThat(responsePost.getStatus()).isEqualTo(status500);
+        assertThat(responsePost.getStatus()).isEqualTo(status302);
 
         Url actualUrl = new QUrl()
                 .name.equalTo("https://vk.com")
