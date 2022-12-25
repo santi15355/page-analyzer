@@ -85,15 +85,15 @@ jacoco {
     toolVersion = "0.8.7"
 }
 
-task stage(dependsOn: ['clean', 'buildFatJar'])
-buildFatJar.mustRunAfter(clean)
+/*task stage(dependsOn: ['clean', 'buildFatJar'])
+buildFatJar.mustRunAfter(clean)*/
 
 task generateMigrations(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'hexlet.code.MigrationGenerator'
 }
 
-task stage2(dependsOn: ['clean', 'installDist'])
+task stage(dependsOn: ['clean', 'installDist'])
 installDist.mustRunAfter clean
 
 
